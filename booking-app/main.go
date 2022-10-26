@@ -23,12 +23,31 @@ func main() {
 	//Printf  format for varable
 
 	var userName string
+	var lastName string
+	var email string
 	var userTickets int
 
 	// ask user for their name
 
-	userName = "Tom"
-	userTickets = 2
-	fmt.Printf("User %v booked %v tickets.\n", userName, userTickets)
+	// input output function and pointer
+	fmt.Println("Enter your first name:")
+	fmt.Scan(&userName)
+
+	fmt.Println("Enter your last name:")
+	fmt.Scan(&lastName)
+
+	fmt.Println("Enter your email address:")
+	fmt.Scan(&email)
+
+	fmt.Println("Enter number of tickts:")
+	fmt.Scan(&userTickets)
+
+	//fmt.Println(remainingTickets)
+	//fmt.Println(&remainingTickets)
+
+	//userName = "Tom"
+	//userTickets = 2
+	//fmt.Printf("User %v booked %v tickets.\n", userName, userTickets)
+	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v \n", userName, lastName, userTickets, email)
 
 }
