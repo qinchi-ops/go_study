@@ -129,4 +129,20 @@ func main() {
 
 	}
 
+	city := "London"
+
+	switch city {
+	case "New York":
+		// execute code for booking New York conference tickets
+	case "Singapore":
+		// execute code for booking New York conference tickets
+	case "London":
+		// some code here
+	case "Mexico city":
+		// some code here
+	case "Hongkong":
+		//some code here
+	default:
+		fmt.Print("No valid city selected")
+	}
 }
