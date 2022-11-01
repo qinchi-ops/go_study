@@ -3,7 +3,6 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strconv"
 )
 
 // var conferenceName string = "Go Conference" equal conferenceName := "Go Conference" but global can't use :=
@@ -13,7 +12,17 @@ var conferenceName = "Go Conference"
 var remainingTickets uint = 50
 
 // list of map
-var bookings = make([]map[string]string, 0)
+// maps  only support 1 data type
+//var bookings = make([]map[string]string, 0)
+
+var bookings = make([]UserData, 0)
+
+type UserData struct {
+	userName        string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
 
 //var bookings = []string{}
 
@@ -74,7 +83,7 @@ func getFirstNames() []string {
 	for _, booking := range bookings {
 		//var names = strings.Fields(booking)
 		//string.Fields(string) split the space
-		firstNames = append(firstNames, booking["firstName"])
+		firstNames = append(firstNames, booking.userName)
 	}
 	return firstNames
 	//fmt.Printf("The first name of bookings are: %v\n", firstNames)
@@ -111,16 +120,23 @@ func getUserInput() (string, string, string, uint) {
 func bookTicket(userTickets uint, userName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
 
+	var userData = UserData{
+		userName:        userName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTickets,
+	}
+
 	//create a map for a user
 	// var myslice []string
 	// var mymap map [string]string
-	var userData = make(map[string]string)
-	userData["userName"] = userName
-	userData["lastName"] = lastName
-	userData["email"] = email
+	// var userData = make(map[string]string)
+	// userData["userName"] = userName
+	// userData["lastName"] = lastName
+	// userData["email"] = email
 
 	// we need convert the uint into a string
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	//userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
 
 	//bookings[0] = userName + " " + lastName
 	bookings = append(bookings, userData)
