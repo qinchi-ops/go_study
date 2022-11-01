@@ -3,7 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strings"
+	"strconv"
 )
 
 // var conferenceName string = "Go Conference" equal conferenceName := "Go Conference" but global can't use :=
@@ -11,7 +11,11 @@ const conferenceTickets int = 50
 
 var conferenceName = "Go Conference"
 var remainingTickets uint = 50
-var bookings = []string{}
+
+// list of map
+var bookings = make([]map[string]string, 0)
+
+//var bookings = []string{}
 
 func main() {
 
@@ -68,9 +72,9 @@ func greetUsers() {
 func getFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
-		var names = strings.Fields(booking)
+		//var names = strings.Fields(booking)
 		//string.Fields(string) split the space
-		firstNames = append(firstNames, names[0])
+		firstNames = append(firstNames, booking["firstName"])
 	}
 	return firstNames
 	//fmt.Printf("The first name of bookings are: %v\n", firstNames)
@@ -106,8 +110,22 @@ func getUserInput() (string, string, string, uint) {
 
 func bookTicket(userTickets uint, userName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
+
+	//create a map for a user
+	// var myslice []string
+	// var mymap map [string]string
+	var userData = make(map[string]string)
+	userData["userName"] = userName
+	userData["lastName"] = lastName
+	userData["email"] = email
+
+	// we need convert the uint into a string
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+
 	//bookings[0] = userName + " " + lastName
-	bookings = append(bookings, userName+" "+lastName)
+	bookings = append(bookings, userData)
+
+	fmt.Printf("List of bookings is %v\n", bookings)
 
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v \n", userName, lastName, userTickets, email)
 	fmt.Printf("%v tickets remaining for %v \n", remainingTickets, conferenceName)
